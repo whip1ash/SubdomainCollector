@@ -1,17 +1,17 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+"""
+调用Censys接口,返回子域名集合
+"""
+
+
 import config
 import requests
 from common.api import API
 
 requests.adapters.DEFAULT_RETRIES = 5
 requests.packages.urllib3.disable_warnings()
-
-"""
-调用Censys接口,返回子域名集合
-"""
-
 
 class censys(API):
 

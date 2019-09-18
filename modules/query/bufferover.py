@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-向https://dns.bufferover.run/dns 网站提取子域名
+向https://dns.bufferover.run/dns 网站提取子域名,返回子域名集合
 """
 from common.api import API
 import requests,cfscrape

@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python
+
+"""
+API查询基类
+"""
+
 from utils import match
 from utils import fake_header
 
@@ -10,9 +15,6 @@ import requests
 requests.adapters.DEFAULT_RETRIES = 5
 requests.packages.urllib3.disable_warnings()
 
-"""
-API查询基类
-"""
 
 class API():
 
