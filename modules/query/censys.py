@@ -3,11 +3,15 @@
 
 import config
 import requests
-import time
 from common.api import API
 
 requests.adapters.DEFAULT_RETRIES = 5
 requests.packages.urllib3.disable_warnings()
+
+"""
+调用Censys接口,返回子域名集合
+"""
+
 
 class censys(API):
 
@@ -44,7 +48,7 @@ class censys(API):
             pages = res.get("metadata").get("pages") + 1
 
             for page in range(2, pages):
-                time.sleep(self.delay)
+                self.sleep()
                 data['page'] = page
                 # resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),proxies=self.proxies,verify=self.verify)
                 resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), verify=self.verify)
@@ -56,7 +60,6 @@ class censys(API):
                 self.subdomains = self.subdomains.union(subdomains)
             # print self.subdomains
 
-            self.end_time = time.time()
             return self.subdomains
         except Exception as e:
             print e

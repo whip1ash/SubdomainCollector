@@ -42,9 +42,10 @@ class API():
         """
         return match.match(self.target,text)
 
-
-
-
+    #中断睡眠
+    def sleep(self):
+        time.sleep(self.delay)
+        return
 
 
 
