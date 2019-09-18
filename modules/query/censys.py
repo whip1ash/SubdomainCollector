@@ -13,7 +13,7 @@ class censys(API):
 
     def __init__(self,target):
         API.__init__(self)
-        self.addr = 'https://www.censys.io/api/v1/search/certificates'
+        self.addr = 'https://www.censys.io/api/v1/search/certificates'  #接口地址
         self.target = target
         self.module = "Censys接口查询"
         self.id = config.censys_api_id
@@ -30,12 +30,12 @@ class censys(API):
         }
         # print data
         try:
-            resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),proxies=self.proxies,verify=self.verify)
-            # resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), verify=self.verify)
+            # resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),proxies=self.proxies,verify=self.verify)
+            resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), verify=self.verify)
             res = resp.json()
             if not resp.status_code == 200:
                 print res
-                print self.module + "模块花费时间为：" + str(self.end_time - self.start_time)
+
                 return self.subdomains
             else:
                 print self.module + "API有效"
@@ -46,28 +46,25 @@ class censys(API):
             for page in range(2, pages):
                 time.sleep(self.delay)
                 data['page'] = page
-                resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),proxies=self.proxies,verify=self.verify)
-                # resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), verify=self.verify)
+                # resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),proxies=self.proxies,verify=self.verify)
+                resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), verify=self.verify)
                 if not resp.status_code == 200:
                     # print resp.json()
                     print "查询失败"
-                    print self.module + "模块花费时间为：" + str(self.end_time - self.start_time)
                     return self.subdomains
                 subdomains = self.match_domain(str(resp.json()))
                 self.subdomains = self.subdomains.union(subdomains)
             # print self.subdomains
 
             self.end_time = time.time()
-            print self.module +"模块花费时间为：" + str(self.end_time - self.start_time)
             return self.subdomains
         except Exception as e:
             print e
-            print self.module + "模块花费时间为：" + str(self.end_time - self.start_time)
             return self.subdomains
 
 if __name__ == '__main__':
 
-    query = censys("baidu.com")
+    query = censys("wanmei.com")
     print query.query()
 
 
