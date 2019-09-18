@@ -378,6 +378,7 @@ if __name__ == '__main__':
     resolver = init_resolver(dns_servers)
 
     r_subdomains,r = call_riskiq(target)
+    # 这里为什么没有用变量去接受一个返回值，但是res_resolvtion已经被赋新值
     combine_subdomains(r_subdomains,res_resolvtion,resolver)
 
     if DEBUG:

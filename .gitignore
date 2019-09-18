@@ -102,3 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# custom
+api_key.py
+.idea/
+*.txt
