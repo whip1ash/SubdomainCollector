@@ -8,6 +8,8 @@ resolver_servers = [
     '233.5.5.5',
     '233.6.6.6'
 ]
+#DNS解析超时时间
+resolver_timeout = 3.0
 
 #本地测试代理
 proxies = {
