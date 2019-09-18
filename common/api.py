@@ -27,7 +27,7 @@ class API():
         self.debug = config.Debug       #调试开关
         self.target = ""                #目标域名
         self.proxies = config.proxies   #代理
-        self.headers = fake_header      #http头
+        self.headers = fake_header.fake_header()     #http头
         self.addr = None                #Api接口地址
         self.verify = config.verify     #SSL 开关
         self.delay = 0                  #接口限制需要等待的时间

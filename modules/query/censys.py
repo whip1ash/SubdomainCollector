@@ -5,7 +5,6 @@
 调用Censys接口,返回子域名集合
 """
 
-
 import config
 import requests
 from common.api import API
@@ -34,8 +33,8 @@ class censys(API):
         }
         # print data
         try:
-            # resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),proxies=self.proxies,verify=self.verify)
-            resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), verify=self.verify)
+            # resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),headers=self.headers,proxies=self.proxies,verify=self.verify)
+            resp = requests.post(url=self.addr, json=data, headers=self.headers,auth=(self.id, self.secret), verify=self.verify)
             res = resp.json()
             if not resp.status_code == 200:
                 print res
@@ -50,8 +49,8 @@ class censys(API):
             for page in range(2, pages):
                 self.sleep()
                 data['page'] = page
-                # resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),proxies=self.proxies,verify=self.verify)
-                resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), verify=self.verify)
+                # resp = requests.post(url=self.addr,json=data,auth=(self.id,self.secret),headers=self.headers,proxies=self.proxies,verify=self.verify)
+                resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), headers=self.headers,verify=self.verify)
                 if not resp.status_code == 200:
                     # print resp.json()
                     print "查询失败"

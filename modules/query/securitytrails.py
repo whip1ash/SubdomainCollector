@@ -26,7 +26,8 @@ class securitytrails(API):
         url = self.addr + self.target + "/subdomains"
         self.sleep()
         try:
-            resp = requests.get(url=url, params=params, proxies=self.proxies, verify=False)
+            resp = requests.get(url=url, params=params, headers=self.headers,proxies=self.proxies,verify=False)
+            # resp = requests.get(url=url, params=params, headers=self.headers, verify=False)
 
             if resp.status_code is not 200:
                 print "查询出错"
