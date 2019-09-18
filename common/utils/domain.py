@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import sys
 
-# 域名去重
+# 域名去重 暂时废弃
 
 if __name__ == "__main__":
 	read_path = sys.argv[1]

@@ -4,7 +4,7 @@ import whois
 import sys
 import json
 
-	# 检查域名不同的后缀是否是一个企业
+	# 检查域名不同的后缀是否是一个企业 暂时废弃
 
 
 

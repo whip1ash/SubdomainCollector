@@ -2,7 +2,7 @@
 
 import sys
 
-# 通过ip来排序域名，这样可以看出大概的ip范围，然后确定反代网关，确定生产段
+# 通过ip来排序域名，这样可以看出大概的ip范围，然后确定反代网关，确定生产段 暂时废弃
 
 def read_file(r_path):
 	f_read = open(r_path,'r')
