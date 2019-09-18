@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import requests
 
 def match_domain(domain,text):
     """
@@ -19,4 +20,8 @@ def match_domain(domain,text):
 
 if __name__ == '__main__':
 
+    url = "http://www.wanmei.com/"
+    resp = requests.get(url=url)
+
+    print match_domain("wanmei.com",resp.content)
 
