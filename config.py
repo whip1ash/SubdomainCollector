@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from colorlog import ColoredFormatter
-import logging
+import random
 
 #DNS服务器
 resolver_servers = [
@@ -10,6 +9,9 @@ resolver_servers = [
 ]
 #DNS解析超时时间
 resolver_timeout = 3.0
+
+#SSL_Verify
+verify = False
 
 #本地测试代理
 proxies = {
@@ -44,25 +46,21 @@ virustotal_api_key = "9b6319409c8a982cc9202b5899df9f5f511b05cb8f94e2a45548860c1d
 #securitytrails api_key free for 50 times
 securitytrails_api_key  = "Q9kaomMt4069phyGVk4F2FBAp57abH4C"
 
+#aizhan api
+aizhan_api = "2157bf6df185b171b237e22fed66050d"
 
-if __name__ == '__main__':
-    LOG_LEVEL = logging.DEBUG
+#UA头
+user_agents = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/68.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:61.0) '
+    'Gecko/20100101 Firefox/68.0',
+    'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/68.0']
 
-    LOGFORMAT = "  %(log_color)s%(asctime)s  %(levelname)-8s%(reset)s | %(log_color)s%(message)s%(reset)s"
-    logging.root.setLevel(LOG_LEVEL)
-    formatter = ColoredFormatter(LOGFORMAT)
-
-    stream = logging.StreamHandler()
-    stream.setLevel(LOG_LEVEL)
-    stream.setFormatter(formatter)
-
-    log = logging.getLogger('pythonConfig')
-    log.setLevel(LOG_LEVEL)
-    log.addHandler(stream)
-
-    log.debug("This is debug.")
-    log.info("This is info.")
-    log.warning("This is warning.")
-    log.error("This is error.")
-    log.critical("This is critical.")
-
+#是否需要伪造IP
+FAKE_IP = True
