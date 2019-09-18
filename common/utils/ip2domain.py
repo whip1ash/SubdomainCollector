@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import requests,random
+import requests
 import config
-import json
 import fake_header
 import match_domain
 requests.adapters.DEFAULT_RETRIES = 5
@@ -11,7 +10,7 @@ requests.packages.urllib3.disable_warnings()
 
 def ip2domain(ip,target):
     """
-    调用爱站api去反查域名,得到子域名
+    调用爱站api去反查域名,返回子域名
     :param ip: 反查的ip
     :param ip: 目标域名如 wanmei.com
     :return: set()
@@ -27,7 +26,8 @@ def ip2domain(ip,target):
         "query":ip,
         "page":1
     }
-    resp = requests.get(url=url,params=params,proxies=proxies,headers=headers,verify=verify)
+    resp = requests.get(url=url,params=params,headers=headers,verify=verify)
+    # resp = requests.get(url=url,params=params,proxies=proxies,headers=headers,verify=verify)
     info = resp.json()
     if not info.get("code") == 200000:
         #logger 报错
@@ -39,7 +39,8 @@ def ip2domain(ip,target):
     domains = domains.union(domain)
     for page in range(2,pages+1):
         params["page"] = page
-        res = requests.get(url=url, params=params, proxies=proxies, headers=headers, verify=verify).json()
+        # res = requests.get(url=url, params=params, proxies=proxies, headers=headers, verify=verify).json()
+        res = requests.get(url=url, params=params, headers=headers, verify=verify).json()
         if not res.get("code") == 200000:
 
             return domains
