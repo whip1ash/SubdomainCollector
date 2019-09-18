@@ -18,6 +18,7 @@ class bufferover(API):
         self.target = target
         self.module = "Bufferover接口查询"
 
+    #绕过 Cloudflare 5s盾
     def query(self):
 
         url = self.addr % self.target
