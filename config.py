@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import random
 
+#Debug
+Debug = False
+
 #DNS服务器
 resolver_servers = [
     '114.114.114.114',
@@ -63,4 +66,4 @@ user_agents = [
     'Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/68.0']
 
 #是否需要伪造IP
-FAKE_IP = True
+FAKE_IP = False

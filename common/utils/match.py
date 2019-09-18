@@ -2,9 +2,9 @@
 import re
 import requests
 
-def match_domain(domain,text):
+def match(domain,text):
     """
-    利用正则匹配出resp中的域名,若不存在，返回空集合
+    利用正则匹配出resp中的子域名,若不存在，返回空集合
     :param domain: 目标域名
     :param text: resp内容
     :return: set()
@@ -22,5 +22,5 @@ if __name__ == '__main__':
     url = "http://www.wanmei.com/"
     resp = requests.get(url=url)
 
-    print match_domain("com",resp.content)
+    print match("com",resp.content)
 

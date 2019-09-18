@@ -4,7 +4,7 @@
 import requests
 import config
 import fake_header
-import match_domain
+import match
 requests.adapters.DEFAULT_RETRIES = 5
 requests.packages.urllib3.disable_warnings()
 
@@ -35,7 +35,7 @@ def ip2domain(ip,target):
         return set()
     pages = info.get("data").get("total_pages")
     nums = info.get("data").get("total_num")
-    domain = match_domain.match_domain(target,str(info))
+    domain = match.match_domain(target, str(info))
     domains = domains.union(domain)
     for page in range(2,pages+1):
         params["page"] = page
@@ -44,7 +44,7 @@ def ip2domain(ip,target):
         if not res.get("code") == 200000:
 
             return domains
-        ddomain = match_domain.match_domain(target,str(res))
+        ddomain = match.match_domain(target, str(res))
         domains = domains.union(ddomain)
     return domains
 
