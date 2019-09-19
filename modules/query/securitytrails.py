@@ -15,7 +15,7 @@ requests.packages.urllib3.disable_warnings()
 class securitytrails(API):
     def __init__(self,target):
         API.__init__(self)
-        self.module = "Securitytrails接口查询"
+        self.name = "Securitytrails接口查询"
         self.target = target
         self.api_key = config.securitytrails_api_key
         self.addr = "https://api.securitytrails.com/v1/domain/"
@@ -30,9 +30,11 @@ class securitytrails(API):
             # resp = requests.get(url=url, params=params, headers=self.headers, verify=False)
 
             if resp.status_code is not 200:
-                print "查询出错"
+                # print "查询出错"
+                self.logger().error("API查询失败")
                 return self.subdomains
-
+            else:
+                self.logger().info("API_Key有效")
             data = resp.json()["subdomains"]
             sub = [i + "." + self.target for i in data]
             subb = set([i.encode("utf-8") for i in sub])
@@ -42,7 +44,7 @@ class securitytrails(API):
             return self.subdomains
 
         except Exception as e:
-            print e
+            self.logger().error("查询出错：" + str(e))
             return self.subdomains
 
 if __name__ == '__main__':

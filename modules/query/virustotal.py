@@ -15,6 +15,7 @@ class virustotal(API):
 
     def __init__(self,target):
         API.__init__(self)
+        self.name = "Virustotal接口查询"
         self.addr = "https://www.virustotal.com//vtapi/v2/domain/report"
         self.api_key = config.virustotal_api_key
         self.target = target
@@ -26,13 +27,15 @@ class virustotal(API):
             resp = requests.get(url=self.addr, headers=self.headers,params=params,verify=self.verify)
 
             if resp.status_code is not 200:
-                print "ApiKey is Error"
+                self.logger().error("API_KEY 错误")
                 return self.subdomains
-
+            else:
+                self.logger().info("API调用成功")
             data = resp.json().get('subdomains')
             # print [i.encode("utf-8") for i in data]
             sub = set([i.encode("utf-8") for i in data])
             self.subdomains = self.subdomains.union(sub)
+
             return self.subdomains
 
         except Exception as e:

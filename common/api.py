@@ -7,6 +7,7 @@ API查询基类
 
 from utils import match
 from utils import fake_header
+from logger import logger
 
 import config
 import time
@@ -49,6 +50,9 @@ class API():
         time.sleep(self.delay)
         return
 
+    #日志打印
 
+    def logger(self):
+        return logger(self.name)
 
 
