@@ -21,8 +21,8 @@ class crtsh(API):
     def query(self):
         params = {"output": "json", "q": self.target}
         try:
-            resp = requests.get(url=self.addr, headers=self.headers,params=params,proxies=self.proxies,verify=self.verify)
-            # resp = requests.get(url=self.addr, headers=self.headers,params=params,verify=self.verify)
+            # resp = requests.get(url=self.addr, headers=self.headers,params=params,proxies=self.proxies,verify=self.verify)
+            resp = requests.get(url=self.addr, headers=self.headers,params=params,verify=self.verify)
 
             if resp.status_code is not 200:
                 self.logger().error("查询错误")
@@ -37,6 +37,22 @@ class crtsh(API):
         except Exception as e:
             self.logger().error("查询出错：" + str(e))
             return self.subdomains
+
+    def run(self):
+        """
+        整合
+        """
+        self.query()
+        self.save_data()
+
+def do(target):
+    """
+    统一多线程调用
+    :param target: 目标域名
+    :return: NULL。直接存入队列
+    """
+    ct = crtsh(target)
+    ct.run()
 
 if __name__ == '__main__':
     cs = crtsh("wanmei.com")

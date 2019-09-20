@@ -41,8 +41,28 @@ class bufferover(API):
             return self.subdomains
 
 
+    def run(self):
+        """
+        整合
+        """
+        self.query()
+        self.save_data()
+
+def do(target):
+    """
+    统一多线程调用
+    :param target: 目标域名
+    :return: NULL。直接存入队列
+    """
+    br = bufferover(target)
+    br.run()
+
+
 if __name__ == '__main__':
+
     br = bufferover("wanmei.com")
     print br.query()
+
+    # do("wanmei.com")
 
 

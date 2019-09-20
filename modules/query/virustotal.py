@@ -42,6 +42,24 @@ class virustotal(API):
             self.logger().error("查询出错：" + str(e))
             return self.subdomains
 
+    def run(self):
+        """
+        整合
+        """
+        self.query()
+        self.save_data()
+
+def do(target):
+    """
+    统一多线程调用
+    :param target: 目标域名
+    :return: NULL。直接存入队列
+    """
+    vt = virustotal(target)
+    vt.run()
+
+
 if __name__ == '__main__':
     vs = virustotal("wanmei.com")
     print vs.query()
+    # do("wanmei.com")

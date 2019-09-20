@@ -52,8 +52,8 @@ class zoomeye(API):
         data = {"query":"hostname:"+self.target,"page":page}
         try:
             while True:
-                resp = requests.get(url=self.addr, headers=self.headers,params=data,proxies=self.proxies,verify=self.verify)
-                # resp = requests.get(url=self.addr, headers=self.headers,params=params,verify=self.verify)
+                # resp = requests.get(url=self.addr, headers=self.headers,params=data,proxies=self.proxies,verify=self.verify)
+                resp = requests.get(url=self.addr, headers=self.headers,params=data,verify=self.verify)
                 if resp.status_code is not 200:
                     self.logger().error("查询错误")
                     break
@@ -69,7 +69,23 @@ class zoomeye(API):
             self.logger().error("查询出错：" + str(e))
             return self.subdomains
 
+    def run(self):
+        """
+        整合
+        """
+        self.query()
+        self.save_data()
+
+def do(target):
+    """
+    统一多线程调用
+    :param target: 目标域名
+    :return: NULL。直接存入队列
+    """
+    ze = zoomeye(target)
+    ze.run()
 
 if __name__ == '__main__':
     ze = zoomeye("wanmei.com")
     print ze.query()
+    # do("wanmei.com")

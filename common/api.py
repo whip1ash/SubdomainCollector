@@ -2,7 +2,7 @@
 #!/usr/bin/python
 
 """
-API查询基类
+API查询基类,证书查询之类的都继承该类
 """
 
 from utils import match
@@ -55,4 +55,6 @@ class API():
     def logger(self):
         return logger(self.name)
 
-
+    #TODO:将子域名数据存储至数据库的函数
+    def save_data(self):
+        pass
