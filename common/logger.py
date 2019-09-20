@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 import coloredlogs
 import logging
@@ -19,7 +20,11 @@ def logger(name):
 
 
 
-
+if __name__ == '__main__':
+    logger("").info("info")
+    logger("").debug("debug")
+    logger("").error("error")
+    logger("").fatal("fatal")
 
 
 

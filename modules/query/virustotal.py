@@ -39,7 +39,7 @@ class virustotal(API):
             return self.subdomains
 
         except Exception as e:
-            print e
+            self.logger().error("查询出错：" + str(e))
             return self.subdomains
 
 if __name__ == '__main__':
