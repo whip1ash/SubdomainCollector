@@ -1,40 +1,35 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
-向virustotal接口查询，返回子域名集合
+向crtsh查询证书，返回子域名集合
 """
 
 import requests
-import config
 from common.api import API
 
-# 父类已经设置
-# requests.adapters.DEFAULT_RETRIES = 5
-# requests.packages.urllib3.disable_warnings()
+requests.adapters.DEFAULT_RETRIES = 5
+requests.packages.urllib3.disable_warnings()
 
-class virustotal(API):
+class crtsh(API):
 
     def __init__(self,target):
         API.__init__(self)
-        self.name = "Virustotal接口查询"
-        self.addr = "https://www.virustotal.com//vtapi/v2/domain/report"
-        self.api_key = config.virustotal_api_key
+        self.name = "Crtsh证书查询"
+        self.addr = "https://crt.sh/"
         self.target = target
 
     def query(self):
-        params = {"apikey": self.api_key, "domain": self.target}
+        params = {"output": "json", "q": self.target}
         try:
             # resp = requests.get(url=self.addr, headers=self.headers,params=params,proxies=self.proxies,verify=self.verify)
             resp = requests.get(url=self.addr, headers=self.headers,params=params,verify=self.verify)
 
             if resp.status_code is not 200:
-                self.logger().error("API_KEY 错误")
+                self.logger().error("查询错误")
                 return self.subdomains
             else:
                 self.logger().info("API调用成功")
-            data = resp.json().get('subdomains')
-            # print [i.encode("utf-8") for i in data]
-            sub = set([i.encode("utf-8") for i in data])
+            sub = self.match_domain(str(resp.json()))
             self.subdomains = self.subdomains.union(sub)
 
             return self.subdomains
@@ -56,11 +51,9 @@ def do(target):
     :param target: 目标域名
     :return: NULL。直接存入队列
     """
-    vt = virustotal(target)
-    vt.run()
-
+    ct = crtsh(target)
+    ct.run()
 
 if __name__ == '__main__':
-    vs = virustotal("wanmei.com")
-    print vs.query()
-    # do("wanmei.com")
+    cs = crtsh("wanmei.com")
+    print cs.query()

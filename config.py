@@ -28,8 +28,6 @@ w_proxies = {
     'https' : 'socks5://127.0.0.1:1080'
 }
 
-
-
 #UA头
 user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '

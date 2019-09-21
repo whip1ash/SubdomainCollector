@@ -17,7 +17,7 @@ class bufferover(API):
         API.__init__(self)
         self.addr = "https://dns.bufferover.run/dns?q=%s"
         self.target = target
-        self.module = "Bufferover接口查询"
+        self.name = "Bufferover接口查询"
 
     #绕过 Cloudflare 5s盾
     def query(self):
@@ -27,19 +27,43 @@ class bufferover(API):
             scraper = cfscrape.create_scraper()
             data = scraper.get(url).content
             if not data:
-                print "查询失败"
+                # print "查询失败"
+                self.logger().error("API查询失败")
+                # if self.debug:
+                #     self.logger().debug(data)
                 return self.subdomains
-
+            else:
+                self.logger().info("查询成功")
             subdomain = self.match_domain(data)
             self.subdomains = self.subdomains.union(subdomain)
             return self.subdomains
         except Exception as e:
-            print e
+            self.logger().error("查询出错：" + str(e))
             return self.subdomains
 
 
+    def run(self):
+        """
+        整合
+        """
+        self.query()
+        self.save_data()
+
+def do(target):
+    """
+    统一多线程调用
+    :param target: 目标域名
+    :return: NULL。直接存入队列
+    """
+    br = bufferover(target)
+    br.run()
+
+
 if __name__ == '__main__':
+
     br = bufferover("wanmei.com")
     print br.query()
+
+    # do("wanmei.com")
 
 

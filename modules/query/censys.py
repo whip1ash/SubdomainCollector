@@ -19,7 +19,7 @@ class censys(API):
         API.__init__(self)
         self.addr = 'https://www.censys.io/api/v1/search/certificates'  #接口地址
         self.target = target
-        self.module = "Censys接口查询"
+        self.name = "Censys接口查询"
         self.id = config.censys_api_id
         self.secret = config.censys_secret
         self.delay = 3    #免费接口查询限制，2.5s一次
@@ -38,11 +38,10 @@ class censys(API):
             resp = requests.post(url=self.addr, json=data, headers=self.headers,auth=(self.id, self.secret), verify=self.verify)
             res = resp.json()
             if not resp.status_code == 200:
-                print res
-
+                self.logger().error("API查询失败")
                 return self.subdomains
             else:
-                print self.module + "API有效"
+                self.logger().info("API_Key有效")
             subdomains = self.match_domain(str(res))
             self.subdomains = self.subdomains.union(subdomains)
             pages = res.get("metadata").get("pages") + 1
@@ -54,7 +53,7 @@ class censys(API):
                 resp = requests.post(url=self.addr, json=data, auth=(self.id, self.secret), headers=self.headers,verify=self.verify)
                 if not resp.status_code == 200:
                     # print resp.json()
-                    print "查询失败"
+                    self.logger().error("API查询失败")
                     return self.subdomains
                 subdomains = self.match_domain(str(resp.json()))
                 self.subdomains = self.subdomains.union(subdomains)
@@ -62,8 +61,25 @@ class censys(API):
 
             return self.subdomains
         except Exception as e:
-            print e
+            self.logger().error("查询出错：" + str(e))
             return self.subdomains
+
+    def run(self):
+        """
+        整合
+        """
+        self.query()
+        self.save_data()
+
+def do(target):
+    """
+    统一多线程调用
+    :param target: 目标域名
+    :return: NULL。直接存入队列
+    """
+    cs = censys(target)
+    cs.run()
+
 
 if __name__ == '__main__':
 

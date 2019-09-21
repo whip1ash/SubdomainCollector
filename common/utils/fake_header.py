@@ -1,5 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""
+伪造header头部
+"""
+
 import random
 import config
 

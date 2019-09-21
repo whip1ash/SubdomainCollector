@@ -2,11 +2,12 @@
 #!/usr/bin/python
 
 """
-API查询基类
+API查询基类,证书查询之类的都继承该类
 """
 
 from utils import match
 from utils import fake_header
+from logger import logger
 
 import config
 import time
@@ -49,6 +50,16 @@ class API():
         time.sleep(self.delay)
         return
 
+    #日志打印
 
+    def logger(self):
+        return logger(self.name)
 
+    #将获取的Unicode集合转utf8编码
+    def encode(self):
+        subdomains = list(self.subdomains)
+        self.subdomains = set([i.encode("utf-8") for i in subdomains])
 
+    #TODO:将子域名数据存储至数据库的函数
+    def save_data(self):
+        pass
