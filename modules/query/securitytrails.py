@@ -5,8 +5,10 @@ import requests
 import config
 
 from common.api import API
-requests.adapters.DEFAULT_RETRIES = 5
-requests.packages.urllib3.disable_warnings()
+
+# 父类已经设置
+# requests.adapters.DEFAULT_RETRIES = 5
+# requests.packages.urllib3.disable_warnings()
 
 """
 调用securitytrails API接口，返回子域名集合

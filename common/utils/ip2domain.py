@@ -12,7 +12,7 @@ def ip2domain(ip,target):
     """
     调用爱站api去反查域名,返回子域名
     :param ip: 反查的ip
-    :param ip: 目标域名如 wanmei.com
+    :param target: 目标域名如 wanmei.com
     :return: set()
     """
     proxies = config.proxies

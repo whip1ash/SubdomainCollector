@@ -7,8 +7,9 @@
 from common.api import API
 import requests,cfscrape
 
-requests.adapters.DEFAULT_RETRIES = 5
-requests.packages.urllib3.disable_warnings()
+# 父类已经设置
+# requests.adapters.DEFAULT_RETRIES = 5
+# requests.packages.urllib3.disable_warnings()
 
 class bufferover(API):
 
