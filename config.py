@@ -22,8 +22,6 @@ proxies = {
     'https': 'https://127.0.0.1:8080'
 }
 
-
-
 #UA头
 user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
@@ -39,3 +37,4 @@ user_agents = [
 
 #是否需要伪造IP
 FAKE_IP = False
+
