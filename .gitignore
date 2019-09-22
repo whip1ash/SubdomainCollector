@@ -107,3 +107,4 @@ venv.bak/
 api_key.py
 .idea/
 *.txt
+config.py
